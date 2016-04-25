@@ -20,7 +20,7 @@
     "dashboard",
     "support"
   ],
-  "author": "Patryk Konior",
+  "authors": ["Patryk Konior","Mateusz Kmiecik","Patryk Ławski"],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/pkoniu/hero-dashboard/issues"
