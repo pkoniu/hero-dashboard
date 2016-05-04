@@ -1,4 +1,5 @@
 # Hero dashboard
+https://travis-ci.org/pkoniu/hero-dashboard.svg?branch=master
 
 ## Running locally
 
