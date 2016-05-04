@@ -7,7 +7,7 @@ module.exports = () => {
 
   let putInMemory = (data) => {
     let appNames = Object.keys(data);
-    appNames.map(function(appName) {
+    appNames.map((appName) => {
       cache[appName] = data[appName];
     });
     //todo: previous data will be overriden, it should override only time at which data was saved
