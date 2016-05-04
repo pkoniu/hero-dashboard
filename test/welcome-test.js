@@ -11,7 +11,7 @@ describe('User welcome page', () => {
             .get('/')
             .expect(200)
             .end((err, res) => {
-                if(err) {
+                if (err) {
                     done(err);
                 } else {
                     let welcomeMessage = res.body.message;
