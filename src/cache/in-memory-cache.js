@@ -14,7 +14,11 @@ module.exports = () => {
     };
 
     let getFromMemory = (appName) => {
-        return cache[appName];
+        return cache[appName]; //todo: if cache is empty: should router handler provide correct data and put in here or should cache handle it itself?
+    };
+
+    let getAllFromMemory = () => {
+        return cache;
     };
 
     let getSize = () => {
@@ -24,6 +28,7 @@ module.exports = () => {
     return {
         get: getFromMemory,
         put: putInMemory,
+        getAll: getAllFromMemory,
         size: getSize
     };
 };
