@@ -4,6 +4,7 @@
 let debug = require('debug')('hero-dashboard:server');
 let server;
 
+let heroku = require('heroku-client');
 let app = require('./../src/app')();
 let http = require('http');
 
