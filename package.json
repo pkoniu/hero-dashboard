@@ -37,6 +37,7 @@
     "cookie-parser": "1.4.1",
     "debug": "^2.2.0",
     "express": "4.13.4",
+    "heroku-client": "^2.4.3",
     "jshint": "^2.9.2",
     "lodash": "^4.11.2",
     "mocha": "^2.4.5",

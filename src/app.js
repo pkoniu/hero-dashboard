@@ -5,10 +5,10 @@ let logger = require('morgan');
 let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
 
-let routes = require('./routes');
 
 module.exports = () => {
     let app = express();
+    let routes = require('./routes')();
 
     app.use(logger('dev'));
     app.use(bodyParser.json());
