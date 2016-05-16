@@ -5,17 +5,17 @@ let assert = require('assert');
 let cheerio = require('cheerio');
 let app = require('./../src/app')();
 
-describe('User welcome page', () => {
-    it('should display json with proper message.', (done) => {
+describe('Frontend public files', () => {
+    it('should be loaded properly.', (done) => {
         request(app)
-            .get('/api/')
+            .get('/')
             .expect(200)
             .end((err, res) => {
                 if (err) {
                     done(err);
                 } else {
-                    let welcomeMessage = res.body.message;
-                    assert.equal(welcomeMessage, 'Hello!');
+                    let pageBody = res.text;
+                    assert(pageBody.indexOf('App is loading') > 0);
                     done();
                 }
             });

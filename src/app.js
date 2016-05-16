@@ -14,8 +14,9 @@ module.exports = () => {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(cookieParser());
+    app.use(express.static(__dirname + '/../public'));
 
-    app.get('/', routes.welcome);
+    app.get('/api', routes.welcome);
 
     //error handlers as middlewares
     app.use((req, res, next) => {
