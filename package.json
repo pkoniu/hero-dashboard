@@ -10,7 +10,8 @@
     "start": "node bin/www",
     "test": "./node_modules/mocha/bin/mocha test/*.js",
     "postinstall": "./node_modules/mocha/bin/mocha test/*.js",
-    "posttest": "jshint src/*.js test/*.js"
+    "posttest": "jshint src/*.js test/*.js",
+    "infra": "node infra/hero-dash-infra.js"
   },
   "repository": {
     "type": "git",
@@ -39,6 +40,7 @@
     "express": "4.13.4",
     "gulp": "^3.9.1",
     "gulp-less": "^3.1.0",
+    "heroin-js": "^1.12.1",
     "heroku-client": "^2.4.3",
     "jshint": "^2.9.2",
     "lodash": "^4.11.2",
