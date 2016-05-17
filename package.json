@@ -9,7 +9,8 @@
   "scripts": {
     "start": "node bin/www",
     "test": "./node_modules/mocha/bin/mocha test/*.js",
-    "infra": "node infra/hero-dash-infra.js"
+    "infra": "node infra/hero-dash-infra.js",
+    "postinstall": "gulp"
   },
   "repository": {
     "type": "git",

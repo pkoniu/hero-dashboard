@@ -1,6 +1,6 @@
 var heroin = require('heroin-js');
 
-var configurator = heroin(process.env.HEROKU_API_TOKEN, {logLevel: 'DEBUG'});
+var configurator = heroin(process.env.HEROKU_API_TOKEN, {logLevel: 'INFO'});
 
 configurator({
     name: 'hero-dash',
