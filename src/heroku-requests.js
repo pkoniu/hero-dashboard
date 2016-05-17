@@ -1,5 +1,3 @@
-var heroku = require('heroku-client');
-
 module.exports = function(heroku) {
     return {
         getAllApps: function() {

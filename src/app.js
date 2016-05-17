@@ -19,11 +19,11 @@ module.exports = () => {
     app.get('/api', routes.welcome);
 
     //error handlers as middlewares
-    app.use((req, res, next) => {
-        let error = new Error('Not Found');
-        error.status = 404;
-        next(error);
-    });
+    //app.use((req, res, next) => {
+    //    let error = new Error('Not Found'); //todo: after instantiating the error is thrown immediately -- hence the comment
+    //    error.status = 404;
+    //    next(error);
+    //});
 
     if(app.get('env') === 'development') { //with stacktrace
         app.use((err, req, res, next) => {
