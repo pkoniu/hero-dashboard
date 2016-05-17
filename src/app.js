@@ -25,7 +25,7 @@ module.exports = () => {
         next(error);
     });
 
-    if (app.get('env') === 'development') { //with stacktrace
+    if(app.get('env') === 'development') { //with stacktrace
         app.use((err, req, res, next) => {
             res.status(err.stats || 500).send(err.message);
         });
