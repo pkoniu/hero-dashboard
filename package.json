@@ -10,7 +10,7 @@
     "start": "node bin/www",
     "test": "./node_modules/mocha/bin/mocha test/*.js",
     "infra": "node infra/hero-dash-infra.js",
-    "jshint": "jshint src/*.js test/*.js Gulpfile.js",
+    "jshint": "jshint src/*.js test/*.js",
     "build:less": "lessc public/less/styles.less public/styles.css",
     "build": "npm run build:less",
     "build:watch": "watch 'npm run build:less' .",
