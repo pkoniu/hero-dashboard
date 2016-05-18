@@ -14,7 +14,8 @@ configurator({
     addons: {},
     collaborators: [
         'mk.chomik@gmail.com',
-        'patryk.konior@gmail.com'
+        'patryk.konior@gmail.com',
+        'patryk.lawski@gmail.com'
     ]
 });
 
