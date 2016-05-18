@@ -10,7 +10,11 @@
     "start": "node bin/www",
     "test": "./node_modules/mocha/bin/mocha test/*.js",
     "infra": "node infra/hero-dash-infra.js",
-    "postinstall": "gulp"
+    "jshint": "jshint src/*.js test/*.js Gulpfile.js",
+    "build:less": "lessc public/less/styles.less public/styles.css",
+    "build": "npm run build:less",
+    "build:watch": "watch 'npm run build:less' .",
+    "build-and-test": "npm run build && npm test && npm run jshint"
   },
   "repository": {
     "type": "git",
@@ -37,18 +41,15 @@
     "cookie-parser": "1.4.1",
     "debug": "^2.2.0",
     "express": "4.13.4",
-    "gulp": "^3.9.1",
-    "gulp-jshint": "^2.0.1",
-    "gulp-less": "^3.1.0",
-    "gulp-mocha": "^2.2.0",
-    "gulp-nodemon": "^2.0.7",
     "heroin-js": "^1.12.1",
     "heroku-client": "^2.4.3",
     "jshint": "^2.9.2",
+    "less": "^2.7.1",
     "lodash": "^4.11.2",
     "mocha": "^2.4.5",
     "morgan": "1.7.0",
     "run-sequence": "^1.2.0",
-    "supertest": "^1.2.0"
+    "supertest": "^1.2.0",
+    "watch": "^0.18.0"
   }
 }
