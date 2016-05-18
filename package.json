@@ -9,8 +9,8 @@
   "scripts": {
     "start": "node bin/www",
     "test": "./node_modules/mocha/bin/mocha test/*.js",
-    "postinstall": "./node_modules/mocha/bin/mocha test/*.js",
-    "posttest": "jshint src/*.js test/*.js"
+    "infra": "node infra/hero-dash-infra.js",
+    "postinstall": "gulp"
   },
   "repository": {
     "type": "git",
@@ -37,11 +37,18 @@
     "cookie-parser": "1.4.1",
     "debug": "^2.2.0",
     "express": "4.13.4",
+    "gulp": "^3.9.1",
+    "gulp-jshint": "^2.0.1",
+    "gulp-less": "^3.1.0",
+    "gulp-mocha": "^2.2.0",
+    "gulp-nodemon": "^2.0.7",
+    "heroin-js": "^1.12.1",
     "heroku-client": "^2.4.3",
     "jshint": "^2.9.2",
     "lodash": "^4.11.2",
     "mocha": "^2.4.5",
     "morgan": "1.7.0",
+    "run-sequence": "^1.2.0",
     "supertest": "^1.2.0"
   }
 }

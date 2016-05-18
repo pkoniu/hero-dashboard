@@ -20,13 +20,13 @@ module.exports = (herokuRequests, cache) => {
     app.get('/api/apps', routes.getApps);
 
     //error handlers as middlewares
-    app.use((req, res, next) => {
-        //let error = new Error('Not Found');
-        //error.status = 404;
-        //next(error);
-    });
+    //app.use((req, res, next) => {
+    //    let error = new Error('Not Found'); //todo: after instantiating the error is thrown immediately -- hence the comment
+    //    error.status = 404;
+    //    next(error);
+    //});
 
-    if (app.get('env') === 'development') { //with stacktrace
+    if(app.get('env') === 'development') { //with stacktrace
         app.use((err, req, res, next) => {
             console.error("Error stack: ", err.stack);
             res.status(err.status || 500).send(err.message);
