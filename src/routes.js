@@ -8,11 +8,10 @@ module.exports = (herokuRequests, cache) => {
             });
         },
         getApps: (req, res) => {
-            var list = cache.getAll();
-            if (cache.size() === 0) {
-                list = herokuRequests.getAllApps();
-            }
-            res.status(200).json(list);
+            herokuRequests.getAllApps()
+                .then((apps) => {
+                    res.status(200).json(apps);
+                });
         }
     };
 };
