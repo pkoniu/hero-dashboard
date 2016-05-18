@@ -6,10 +6,9 @@ let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
 
 
-module.exports = () => {
+module.exports = (herokuRequests, cache) => {
     let app = express();
-    let routes = require('./routes')();
-    let appsList = require('./apps-list')();
+    let routes = require('./routes')(herokuRequests, cache);
 
     app.use(logger('dev'));
     app.use(bodyParser.json());
@@ -18,13 +17,13 @@ module.exports = () => {
     app.use(express.static(__dirname + '/../public'));
 
     app.get('/api', routes.welcome);
-    app.get('/apps', appsList.getList);
+    app.get('/api/apps', routes.getApps);
 
     //error handlers as middlewares
     app.use((req, res, next) => {
-        let error = new Error('Not Found');
-        error.status = 404;
-        next(error);
+        //let error = new Error('Not Found');
+        //error.status = 404;
+        //next(error);
     });
 
     if (app.get('env') === 'development') { //with stacktrace

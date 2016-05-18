@@ -1,11 +1,9 @@
-var heroku = require('heroku-client');
-
-module.exports = function(heroku) {
+module.exports = (heroku) => {
     return {
-        getAllApps: function() {
+        getAllApps: () => {
             return heroku.apps().list();
         },
-        getApp: function(appName) {
+        getApp: (appName) => {
             return heroku.apps(appName).info();
         }
     };
