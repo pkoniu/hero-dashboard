@@ -9,6 +9,7 @@ let bodyParser = require('body-parser');
 module.exports = () => {
     let app = express();
     let routes = require('./routes')();
+    let appsList = require('./apps-list')();
 
     app.use(logger('dev'));
     app.use(bodyParser.json());
@@ -17,6 +18,7 @@ module.exports = () => {
     app.use(express.static(__dirname + '/../public'));
 
     app.get('/api', routes.welcome);
+    app.get('/apps', appsList.getList);
 
     //error handlers as middlewares
     app.use((req, res, next) => {
