@@ -3,7 +3,9 @@ node_js:
 - 4.2.4
 env:
   secure: E5zZ+e1h1IyWFalmzwhis+ktuRgGajeqhs5zGuTnJhHN0GNaHgvRZrDOtLhzLLy7cGBrGzP9lyouUjmtXlAMEYoIWMEN8Jys72lxZCC/f+kKtCE9RGI6kLr3Tk9h9MyoT3lG/t1cmOwgnTBio6EM72njl4x9DSvGl/hfE84mu4MSMM8DXdYG/cPNpaZAHfLnWU7wDSbjJ2da1BfHYp3z7OxSS+Lex7asu4ICk9p8oozTY4UgptETAc1kYHalF45aZ+9Z3C/JtkrllJlRKAVpnf007hztJEUCmOtmcZZAMoptOszzYuqQrFLvZKjAL30qg7exwu7RdqcvjUvkpRVb5GYSsfh8pXAZUWBQkxyWWaQedUMqTS6LSafLKChHdiS9/nMhETVdYRYmcZjCFn0qBApEzKEVgYmbUW56XN+adGKg/3I2C+n/XKAt8xOcR5uzaiPae0yg/MlsGqdPlg+l1q6pQoreRB8tkYNNlXI+NZLIJBBoW5CSPgHVQecsQNy3ICaA0oDCTncAtIVQ+eYG5nfsxR9ayvguUt4LJRVNiMHIOBxOU6CAw0UJiV5x2kTndhyMpZXXK3y5iWVkoWJHESvw9KWFi+EPgyjBk4ITfadyvxivwPY6X1sr2bxOMHf1lZ2A1dLCIEHQT84BOsuNPnK2fWG4ODD7YSOnMGLWG+A=
-script: npm run build-and-test
+script:
+  - npm run test
+  - npm run jshint
 before_deploy: npm run infra
 deploy:
   provider: heroku

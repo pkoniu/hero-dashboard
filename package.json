@@ -14,7 +14,8 @@
     "build:less": "lessc public/less/styles.less public/styles.css",
     "build": "npm run build:less",
     "build:watch": "watch 'npm run build:less' .",
-    "build-and-test": "npm run build && npm test && npm run jshint"
+    "build-and-test": "npm run build && npm test && npm run jshint",
+    "postinstall": "npm run build"
   },
   "repository": {
     "type": "git",
