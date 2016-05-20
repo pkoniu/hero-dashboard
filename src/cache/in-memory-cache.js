@@ -1,35 +1,57 @@
 "use strict";
 
 let _ = require('lodash');
+let moment = require('moment');
 
-module.exports = () => {
-    let cache = {};
+let setup = () => {
+    let storedEntries = {};
 
-    let putInMemory = (data) => {
-        let appNames = Object.keys(data);
-        appNames.map((appName) => {
-            cache[appName] = data[appName];
-        });
-        //todo: previous data will be overriden, it should override only time at which data was saved
+    var evict = (key) => {
+        storedEntries = _.omit(storedEntries, [key]);
+        return Promise.resolve();
     };
 
-    let getFromMemory = (appName) => {
-        return cache[appName]; //todo: if cache is empty: should router handler provide correct data and put in here or should cache handle it itself?
+    var alreadyExists = (data) => {
+        return !!storedEntries[data.appName];
     };
 
-    let getAllFromMemory = () => {
-        return cache;
+    var isExpired = (entry) => {
+        let expirationDate = entry.expiresOn;
+        let now = moment();
+
+        return now.isAfter(expirationDate);
     };
 
-    let getSize = () => {
-        return Object.keys(cache).length;
+    let retrieve = (key) => {
+        let entry = storedEntries[key];
+
+        if (!entry) {
+            return Promise.resolve({});
+        }
+
+        if (isExpired(entry)) {
+            evict(key);
+            return Promise.resolve({});
+        }
+
+        return Promise.resolve(_.omit(entry, ['storedAt']).data);
     };
 
-    return {
-        get: getFromMemory,
-        put: putInMemory,
-        getAll: getAllFromMemory,
-        size: getSize
+    // expiresOn is moment object
+    let store = (data, expiresOn) => {
+        if (alreadyExists(data)) {
+            return Promise.resolve(Object.keys(storedEntries).length);
+        }
+
+        storedEntries[data.appName] = {
+            expiresOn: expiresOn,
+            data: _.omit(data, [data.appName])
+        };
+
+        return Promise.resolve(Object.keys(storedEntries).length);
     };
+
+    return {retrieve, store};
 };
-//todo: right now cache is pretty dumb, made only as a small mock, to make another task
+
+module.exports = setup;
