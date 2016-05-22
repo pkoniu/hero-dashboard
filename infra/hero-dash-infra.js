@@ -12,7 +12,7 @@ configurator({
         NODE_ENV: 'production',
         GITHUB_KEY: process.env.GITHUB_KEY,
         GITHUB_SECRET: process.env.GITHUB_SECRET,
-        APP_DOMAIN: 'http://www.hero-dash.herokuapp.com'
+        APP_DOMAIN: process.env.APP_DOMAIN
     },
     addons: {},
     collaborators: [

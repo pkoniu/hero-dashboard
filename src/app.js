@@ -32,7 +32,7 @@ module.exports = (herokuRequests, cache, packageJSON) => {
     passport.use(new GithubStrategy({
             clientID: process.env.GITHUB_KEY || 'GITHUB_KEY',
             clientSecret: process.env.GITHUB_SECRET || 'GITHUB_SECRET',
-            callbackURL: process.env.APP_DOMAIN + '/auth/github/callback'
+            callbackURL: process.env.APP_DOMAIN + 'auth/github/callback'
         },
         function(accessToken, refreshToken, profile, done) {
             // Set the provider data and include tokens
