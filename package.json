@@ -15,7 +15,7 @@
     "build": "npm run build:less",
     "build:watch": "watch 'npm run build:less' .",
     "build-and-test": "npm run build && npm test && npm run jshint",
-    "postinstall": "npm run build"
+    "postinstall": "npm run build && ./node_modules/.bin/bower install"
   },
   "repository": {
     "type": "git",
@@ -38,6 +38,7 @@
   "homepage": "https://github.com/pkoniu/hero-dashboard#readme",
   "dependencies": {
     "body-parser": "^1.15.0",
+    "bower": "^1.7.9",
     "cheerio": "^0.20.0",
     "cookie-parser": "1.4.1",
     "debug": "^2.2.0",
