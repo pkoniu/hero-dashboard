@@ -14,8 +14,9 @@ describe('Frontend public files', () => {
                 if (err) {
                     done(err);
                 } else {
-                    let pageBody = res.text;
-                    assert(pageBody.indexOf('App is loading') > 0);
+                    let $ = cheerio.load(res.text);
+                    let title = $('title').text();
+                    assert.equal(title, "HeroDASH");
                     done();
                 }
             });
