@@ -20,9 +20,13 @@ module.exports = () => {
         done(null, user);
     });
 
+    console.log(process.env.GITHUB_KEY);
+    console.log(process.env.GITHUB_SECRET);
+    console.log(process.env.APP_DOMAIN);
+
     passport.use(new GithubStrategy({
-            clientID: process.env.GITHUB_KEY || 'GITHUB_KEY',
-            clientSecret: process.env.GITHUB_SECRET || 'GITHUB_SECRET',
+            clientID: process.env.GITHUB_KEY || '132352de336cf916e158', // they are not production keys ;)
+            clientSecret: process.env.GITHUB_SECRET || '35ea8ebf3ee9df852c880b24df48e79af011eace',
             callbackURL: process.env.APP_DOMAIN + 'auth/github/callback'
         },
         function(accessToken, refreshToken, profile, done) {
