@@ -9,7 +9,10 @@ configurator({
     stack: 'cedar-14',
     config_vars: {
         HEROKU_API_TOKEN: process.env.HEROKU_API_TOKEN,
-        NODE_ENV: 'production'
+        NODE_ENV: 'production',
+        GITHUB_KEY: process.env.GITHUB_KEY,
+        GITHUB_SECRET: process.env.GITHUB_SECRET,
+        APP_DOMAIN: 'http://www.hero-dash.herokuapp.com'
     },
     addons: {},
     collaborators: [
