@@ -20,10 +20,6 @@ module.exports = () => {
         done(null, user);
     });
 
-    console.log(process.env.GITHUB_KEY);
-    console.log(process.env.GITHUB_SECRET);
-    console.log(process.env.APP_DOMAIN);
-
     passport.use(new GithubStrategy({
             clientID: process.env.GITHUB_KEY || '132352de336cf916e158', // they are not production keys ;)
             clientSecret: process.env.GITHUB_SECRET || '35ea8ebf3ee9df852c880b24df48e79af011eace',
@@ -47,10 +43,7 @@ module.exports = () => {
     ));
 
     app.get('/auth/github', passport.authenticate('github', {scope:['user']})); //todo: is this the scope we really need?
-    app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }), //todo: failure redirect goes probably wrong
-        (req, res) => {
-            res.redirect('/'); //todo: success redirect too
-        });
+    app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/', successRedirect: '/' }));
 
     return app;
 };

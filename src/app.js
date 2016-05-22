@@ -4,20 +4,29 @@ let express = require('express');
 let logger = require('morgan');
 let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
+let session = require('express-session');
+
+let isLoggedIn = (req, res, next) => {
+    if(req.isAuthenticated()) return next();
+    else res.status(401).send('Unauthorized.');
+};
 
 module.exports = (herokuRequests, cache, packageJSON) => {
     let app = express();
-    let routes = require('./routes')(herokuRequests, cache, packageJSON);
 
+    let routes = require('./routes')(herokuRequests, cache, packageJSON);
     app.use(logger('dev'));
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(cookieParser());
     app.use(express.static(__dirname + '/../public'));
+    app.use(session({secret:'very_secret'}));
     app.use(require('./oauth/github-oauth')());
 
-    app.get('/api', routes.welcome);
-    app.get('/api/apps', routes.getApps);
+    app.get('/api', isLoggedIn, routes.welcome);
+    app.get('/api/apps', isLoggedIn, routes.getApps);
+    app.get('/api/profile', isLoggedIn, routes.getProfile);
+    app.get('/api/logout', isLoggedIn, routes.logout);
     app.get('/about', routes.about);
 
     // error handlers as middlewares

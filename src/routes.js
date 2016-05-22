@@ -19,6 +19,13 @@ module.exports = (herokuRequests, cache, packageJSON) => {
                 repo: packageJSON.repository.url,
                 readme: packageJSON.homepage
             });
+        },
+        getProfile: (req, res) => {
+            res.status(200).json(req.user);
+        },
+        logout: (req, res) => {
+            req.logout();
+            res.status(200).send('Logged out.');
         }
     };
 };
