@@ -1,0 +1,22 @@
+{
+  "name": "hero-dashboard",
+  "description": "Dashboard with apps deployed on heroku",
+  "main": "app.js",
+  "license": "MIT",
+  "keywords": [
+    "heroku",
+    "dashboard",
+    "support"
+  ],
+  "homepage": "https://github.com/pkoniu/hero-dashboard",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.5"
+  }
+}
