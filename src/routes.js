@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = (herokuRequests, cache) => {
+module.exports = (herokuRequests, cache, packageJSON) => {
     return {
         welcome: (req, res) => {
             res.status(200).json({
@@ -12,6 +12,13 @@ module.exports = (herokuRequests, cache) => {
                 .then((apps) => {
                     res.status(200).json(apps);
                 });
+        },
+        about: (req, res) => {
+            res.status(200).send({
+                authors: packageJSON.authors,
+                repo: packageJSON.repository.url,
+                readme: packageJSON.homepage
+            });
         }
     };
 };

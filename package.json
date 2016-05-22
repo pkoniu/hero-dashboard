@@ -14,7 +14,8 @@
     "build:less": "lessc public/less/styles.less public/styles.css",
     "build": "npm run build:less",
     "build:watch": "watch 'npm run build:less' .",
-    "build-and-test": "npm run build && npm test && npm run jshint"
+    "build-and-test": "npm run build && npm test && npm run jshint",
+    "postinstall": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -47,6 +48,7 @@
     "less": "^2.7.1",
     "lodash": "^4.11.2",
     "mocha": "^2.4.5",
+    "moment": "^2.13.0",
     "morgan": "1.7.0",
     "run-sequence": "^1.2.0",
     "supertest": "^1.2.0",

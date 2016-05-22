@@ -7,7 +7,8 @@ let server;
 let Heroku = require('heroku-client');
 let herokuRequests = require('./../src/heroku-requests')(new Heroku({token: process.env.HEROKU_API_TOKEN}));
 let cache = require('./../src/cache/in-memory-cache')();
-let app = require('./../src/app')(herokuRequests, cache);
+let packageJSON = require(process.cwd() + '/package.json');
+let app = require('./../src/app')(herokuRequests, cache, packageJSON);
 let http = require('http');
 
 let port = normalizePort(process.env.PORT || '3000');
