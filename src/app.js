@@ -11,7 +11,10 @@ let isLoggedIn = (req, res, next) => {
     else res.status(401).send('Unauthorized.');
 };
 
-module.exports = (herokuRequests, cache, packageJSON) => {
+module.exports = (herokuRequests, cache, packageJSON, authMiddleware) => {
+
+    authMiddleware = authMiddleware || isLoggedIn;
+
     let app = express();
 
     let routes = require('./routes')(herokuRequests, cache, packageJSON);
@@ -23,10 +26,10 @@ module.exports = (herokuRequests, cache, packageJSON) => {
     app.use(session({secret:'very_secret'}));
     app.use(require('./oauth/github-oauth')());
 
-    app.get('/api', isLoggedIn, routes.welcome);
-    app.get('/api/apps', isLoggedIn, routes.getApps);
-    app.get('/api/profile', isLoggedIn, routes.getProfile);
-    app.get('/api/logout', isLoggedIn, routes.logout);
+    app.get('/api', authMidleware, routes.welcome);
+    app.get('/api/apps', authMidleware, routes.getApps);
+    app.get('/api/profile', authMidleware, routes.getProfile);
+    app.get('/api/logout', authMidleware, routes.logout);
     app.get('/about', routes.about);
 
     // error handlers as middlewares

@@ -7,11 +7,15 @@ let cheerio = require('cheerio');
 describe('Hero-Dash REST API', () => {
     let app;
 
+    let authMiddleware = (req, res, next) => {
+        next();
+    };
+
     before(() => {
         let herokuRequests = require('./stubs/heroku-requests-stub')();
         let cache = require('./../src/cache/in-memory-cache')();
         let packageJSON = require(process.cwd() + '/package.json');
-        app = require('./../src/app')(herokuRequests, cache, packageJSON);
+        app = require('./../src/app')(herokuRequests, cache, packageJSON, authMiddleware);
     });
 
     it('should display json with proper message as welcome', (done) => {
