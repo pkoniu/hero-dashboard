@@ -26,10 +26,10 @@ module.exports = (herokuRequests, cache, packageJSON, authMiddleware) => {
     app.use(session({secret:'very_secret'}));
     app.use(require('./oauth/github-oauth')());
 
-    app.get('/api', authMidleware, routes.welcome);
-    app.get('/api/apps', authMidleware, routes.getApps);
-    app.get('/api/profile', authMidleware, routes.getProfile);
-    app.get('/api/logout', authMidleware, routes.logout);
+    app.get('/api', authMiddleware, routes.welcome);
+    app.get('/api/apps', authMiddleware, routes.getApps);
+    app.get('/api/profile', authMiddleware, routes.getProfile);
+    app.get('/api/logout', authMiddleware, routes.logout);
     app.get('/about', routes.about);
 
     // error handlers as middlewares

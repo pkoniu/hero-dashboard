@@ -11,7 +11,7 @@
     "test": "mocha test/*.js",
     "infra": "node infra/hero-dash-infra.js",
     "jshint": "jshint src/*.js test/*.js",
-    "build": "npm run build:less && npm run build:js",
+    "build": "npm run build:less && gulp concat:js",
     "build:less": "lessc public/less/styles.less public/styles.css",
     "build:js": "globcat public/app/app.js public/app/*.js public/app/**/*.js --output public/app.concat.js",
     "watch:less": "nodemon --watch public/less -e less -x 'npm run build:less'",
