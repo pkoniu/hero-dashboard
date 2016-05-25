@@ -1,0 +1,11 @@
+<h3>Apps</h3>
+
+<p ng-if="!apps.length">Loading...</p>
+
+<div ng-if="apps.length">
+
+    <div class="app-item" ng-repeat="app in apps">
+        <strong>{{app.name}}</strong>
+    </div>
+
+</div>

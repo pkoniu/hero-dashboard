@@ -10,4 +10,30 @@
   border-right: 1px solid darken(@sidebar-bg-color, 10%);
 
   @import "logo";
+
+  ul {
+    list-style: none;
+  }
+
+  li.active a {
+    color: @sidebar-link-hover-color;
+    background: lighten(@sidebar-bg-color, 80%);
+  }
+
+  a {
+    color: @sidebar-link-color;
+    text-decoration: none;
+    background: lighten(@sidebar-bg-color, 10%);
+    height: 30px;
+    line-height: 30px;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    display: block;
+    text-align: center;
+    &:hover {
+      color: @sidebar-link-hover-color;
+      background: lighten(@sidebar-bg-color, 80%);
+    }
+  }
+
 }

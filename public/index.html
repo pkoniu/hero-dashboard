@@ -6,7 +6,7 @@
     <link href='https://fonts.googleapis.com/css?family=Lato:400,700,300,100&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="styles.css" />
 </head>
-<body ng-app>
+<body ng-app="hero-dash" ng-controller="main">
 
     <div class="sidebar">
         <h1 class="logo">
@@ -14,18 +14,24 @@
         </h1>
 
 
-        <ul class="menu">
-            <li>All apps</li>
-            <li>Settings</li>
-            <li>Logout</li>
+        <ul class="menu" ng-if="USER_LOGGED">
+            <li ng-repeat="m in menu" ui-sref-active="active"><a ui-sref="{{m.state}}">{{m.title}}</a></li>
+            <li><a class="clickable" ng-click="logout()">Logout</a></li>
         </ul>
     </div>
 
 
 
-    <div class="content">App is loading... 1+2={{1+2}}</div>
+    <div class="content" ng-if="!USER_LOGGED">
+        <a href="/auth/github" class="github-login-button">Login with github</a>
+    </div>
+
+    <div class="content" ng-if="USER_LOGGED" ui-view>
+    </div>
 
     <script src="vendors/angular/angular.min.js"></script>
+    <script src="vendors/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="app.concat.js"></script>
 
 </body>
 </html>

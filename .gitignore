@@ -3,3 +3,4 @@ node_modules/
 *.log
 public/styles.css
 public/vendors
+public/app.concat.js
