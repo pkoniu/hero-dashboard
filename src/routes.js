@@ -1,6 +1,8 @@
 "use strict";
 
 let moment = require('moment');
+let http = require('http');
+let _ = require('lodash'); 
 
 module.exports = (herokuRequests, cache, packageJSON) => {
     return {
@@ -12,11 +14,32 @@ module.exports = (herokuRequests, cache, packageJSON) => {
         getApps: (req, res) => {
             herokuRequests.getAllApps()
                 .then((apps) => {
+                    
                     // Store all apps in cache
                     Object.keys(apps).forEach(
                         key => cache.store(apps[key], moment().add(7, 'days'))
                     );
-                    res.status(200).json(apps);
+
+                    // What do we have: apps object { [appName]:[appProps], ...}
+                    // What do we need: json from each app's /about endpoint
+                    var appsAbout = {};
+
+                    Object.keys(apps).forEach(
+                        key => {
+                            //var url = .... somehow get the url to /about endpoint of current key app
+                            http.get(url, response => {
+                                response.on("data", data => {
+                                    appsAbout[key] = data;
+                                });
+
+                                response.on("error", error => {
+                                    console.log(error);
+                                });
+                            });
+                        }
+                    );
+
+                    res.status(200).json(_.merge(apps, appsAbout));
                 });
         },
         about: (req, res) => {
