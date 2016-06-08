@@ -10,6 +10,11 @@ module.exports = (herokuRequests, cache, packageJSON) => {
         getApps: (req, res) => {
             herokuRequests.getAllApps()
                 .then((apps) => {
+                    // Store all apps in cache
+                    Object.keys(apps).forEach(
+                        key => cache.store(apps[key], moment().add(7, 'days'))
+                    );
+                    
                     res.status(200).json(apps);
                 });
         },
