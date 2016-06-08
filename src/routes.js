@@ -1,5 +1,7 @@
 "use strict";
 
+let moment = require('moment');
+
 module.exports = (herokuRequests, cache, packageJSON) => {
     return {
         welcome: (req, res) => {
@@ -14,7 +16,6 @@ module.exports = (herokuRequests, cache, packageJSON) => {
                     Object.keys(apps).forEach(
                         key => cache.store(apps[key], moment().add(7, 'days'))
                     );
-                    
                     res.status(200).json(apps);
                 });
         },
