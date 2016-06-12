@@ -1,0 +1,11 @@
+<h3>{{appDetails.name}}</h3>
+
+<p ng-if="!appDetails">Loading...</p>
+
+<div ng-if="appDetails">
+    <ul>
+        <li>Written in: {{appDetails.buildpack_provided_description}}</li>
+        <li>Last Release: {{appDetails.released_at}}</li>
+        <li>Mail owner: <a href="mailto:{{appDetails.owner.email}}">send</a></li>
+    </ul>
+</div>

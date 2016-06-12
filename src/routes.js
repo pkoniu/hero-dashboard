@@ -13,6 +13,12 @@ module.exports = (herokuRequests, cache, packageJSON) => {
                     res.status(200).json(apps);
                 });
         },
+        getApp: (req, res) => {
+            herokuRequests.getAppDetails(req.params.app)
+                .then((app) => {
+                    res.status(200).json(app);
+                });
+        },
         about: (req, res) => {
             res.status(200).send({
                 authors: packageJSON.authors,

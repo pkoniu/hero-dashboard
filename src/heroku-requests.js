@@ -3,7 +3,7 @@ module.exports = (heroku) => {
         getAllApps: () => {
             return heroku.apps().list();
         },
-        getApp: (appName) => {
+        getAppDetails: (appName) => {
             return heroku.apps(appName).info();
         }
     };

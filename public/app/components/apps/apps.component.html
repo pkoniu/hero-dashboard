@@ -6,6 +6,7 @@
 
     <div class="app-item" ng-repeat="app in apps">
         <strong>{{app.name}}</strong>
+        <a ui-sref="appDetails({app:app.name})">{{app.name}}</a>
     </div>
 
 </div>

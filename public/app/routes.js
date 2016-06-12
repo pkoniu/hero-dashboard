@@ -6,6 +6,12 @@ app.config(function ($stateProvider) {
         controller: 'AppsListController'
     });
 
+    $stateProvider.state('appDetails', {
+        url: '/apps/:app',
+        templateUrl: 'app/components/apps/appDetails.component.html',
+        controller: 'AppDetailsController'
+    });
+
     $stateProvider.state('settings', {
         url: '/settings',
         templateUrl: 'app/components/settings/settings.component.html'
