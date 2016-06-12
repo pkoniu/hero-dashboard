@@ -5,13 +5,13 @@ let moment = require('moment');
 
 describe('Cache should', () => {
     let appData = {
-        appName: 'app1',
+        name: 'app1',
         someDetail: 'detail1',
         anotherDetail: 'detail2'
     };
 
     let anotherApp = {
-        appName: 'app2',
+        name: 'app2',
         someDetail: 'detail1',
         anotherDetail: 'detail2'
     };
@@ -59,7 +59,7 @@ describe('Cache should', () => {
             .then((cacheSize) => {
                 return cache.retrieve('app1');
             }).then((retrievedData) => {
-                assert.deepEqual(retrievedData, {});
+                assert.equal(retrievedData, undefined);
                 done();
             }).catch(done);
     });

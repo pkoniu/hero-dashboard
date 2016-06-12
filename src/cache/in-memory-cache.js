@@ -12,7 +12,7 @@ let setup = () => {
     };
 
     var alreadyExists = (data) => {
-        return !!storedEntries[data.appName];
+        return !!storedEntries[data.name];
     };
 
     var isExpired = (entry) => {
@@ -26,12 +26,12 @@ let setup = () => {
         let entry = storedEntries[key];
 
         if (!entry) {
-            return Promise.resolve({});
+            return Promise.resolve(undefined);
         }
 
         if (isExpired(entry)) {
             evict(key);
-            return Promise.resolve({});
+            return Promise.resolve(undefined);
         }
 
         return Promise.resolve(_.omit(entry, ['storedAt']).data);
@@ -43,9 +43,9 @@ let setup = () => {
             return Promise.resolve(Object.keys(storedEntries).length);
         }
 
-        storedEntries[data.appName] = {
+        storedEntries[data.name] = {
             expiresOn: expiresOn,
-            data: _.omit(data, [data.appName])
+            data: _.omit(data, [data.name])
         };
 
         return Promise.resolve(Object.keys(storedEntries).length);
