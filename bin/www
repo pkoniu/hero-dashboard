@@ -1,6 +1,10 @@
 #!/usr/bin/env node
 "use strict";
 
+if(process.env.NODE_ENV !== 'production') {
+    process.env.APP_DOMAIN = 'http://localhost:3000/';
+}
+
 let debug = require('debug')('hero-dashboard:server');
 let server;
 
