@@ -17,7 +17,8 @@
     "watch:less": "nodemon --watch public/less -e less -x 'npm run build:less'",
     "watch:js": "nodemon --watch public/app -e js -x 'npm run build:js'",
     "build-and-test": "npm run build && npm test && npm run jshint",
-    "postinstall": "npm run build && bower install"
+    "postinstall": "npm run build && bower install",
+    "prestart": "npm run build"
   },
   "repository": {
     "type": "git",
