@@ -1,6 +1,7 @@
 "use strict";
 
 let moment = require('moment');
+let request = require('good-guy-http')();
 
 module.exports = (herokuRequests, cache, packageJSON) => {
     return {
@@ -38,6 +39,35 @@ module.exports = (herokuRequests, cache, packageJSON) => {
                 .catch((err) => {
                     next(err);
                 });
+        },
+        monitorApp: (req, res, next) => {
+            let appName = req.params.app;
+
+            res.writeHead(200, {
+                'Content-Type': 'text/event-stream',
+                'Cache-Control': 'no-cache',
+                'Connection': 'keep-alive'
+            });
+
+            setInterval(() => {
+                request('https://' + appName + '.herokuapp.com/about')
+                    .then((response) => {
+                        if(response.statusCode >= 200 && response.statusCode <= 299) {
+                            res.write('id: 1\n');
+                            res.write('event: success\n');
+                            res.write('data: UP\n\n');
+                        } else {
+                            res.write('id: 2\n');
+                            res.write('event: success\n');
+                            res.write('data: DOWN\n\n');
+                        }
+                    })
+                    .catch((error) => {
+                        res.write('id: 3\n');
+                        res.write('event: error\n');
+                        res.send('data: ERROR\n\n');
+                    });
+            }, 2000);
         },
         about: (req, res, next) => {
             res.status(200).send({

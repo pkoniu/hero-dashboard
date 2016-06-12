@@ -5,6 +5,26 @@
     <title>HeroDASH</title>
     <link href='https://fonts.googleapis.com/css?family=Lato:400,700,300,100&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="styles.css" />
+    <script>
+        if (!!window.EventSource) {
+            var eventsource=new EventSource('/api/apps/monitoring/hello-world-heroku1');
+            eventsource.addEventListener('success', function(event) {
+                document.getElementById('hello-world-heroku1-status').innerHTML = event.data;
+            }, false);
+
+            eventsource.addEventListener('error', function(event) {
+                if (event.target.readyState == EventSource.CLOSED) {
+                    document.getElementById('hello-world-heroku1-status').innerHTML = 'N/A - Connection to server closed.';
+                }
+                else if (event.target.readyState == EventSource.CONNECTING) {
+                    document.getElementById('hello-world-heroku1-status').innerHTML = 'N/A - Trying to reconnect...';
+                }
+            }, false)
+        }
+        else{
+            // fallback to long polling
+        }
+    </script>
 </head>
 <body ng-app="hero-dash" ng-controller="main">
 

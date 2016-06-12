@@ -48,6 +48,7 @@
     "express": "4.13.4",
     "express-session": "^1.13.0",
     "globcat": "^0.7.0",
+    "good-guy-http": "^1.7.1",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
     "heroin-js": "^1.12.1",
