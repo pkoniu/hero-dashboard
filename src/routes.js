@@ -50,17 +50,12 @@ module.exports = (herokuRequests, cache, packageJSON) => {
             });
 
             setInterval(() => {
-                request('https://' + appName + '.herokuapp.com/about')
-                    .then((response) => {
-                        if(response.statusCode >= 200 && response.statusCode <= 299) {
-                            res.write('id: 1\n');
-                            res.write('event: success\n');
-                            res.write('data: UP\n\n');
-                        } else {
-                            res.write('id: 2\n');
-                            res.write('event: success\n');
-                            res.write('data: DOWN\n\n');
-                        }
+                herokuRequests.getAppStatus(appName)
+                    .then((dynos) => {
+                        let firstDyno = dynos[0]; //todo: don't take only first dyno, look at all available
+                        res.write('id: ' + firstDyno.id + '\n');
+                        res.write('event: success\n');
+                        res.write('data: ' + firstDyno.state + '\n\n');
                     })
                     .catch((error) => {
                         res.write('id: 3\n');

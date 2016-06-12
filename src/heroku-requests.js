@@ -5,6 +5,9 @@ module.exports = (heroku) => {
         },
         getAppDetails: (appName) => {
             return heroku.apps(appName).info();
+        },
+        getAppStatus: (appName) => {
+            return heroku.apps(appName).dynos().list();
         }
     };
 };
