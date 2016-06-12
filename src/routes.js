@@ -17,6 +17,7 @@ module.exports = (herokuRequests, cache, packageJSON) => {
         },
         getApp: (req, res, next) => {
             let appName = req.params.app;
+            let appDetailsToReturn;
 
             cache.retrieve(appName)
                 .then((appDetailsFromCache) => {
@@ -27,11 +28,12 @@ module.exports = (herokuRequests, cache, packageJSON) => {
                     }
                 })
                 .then((appDetails) => {
-                    cache.store(appDetails, moment().add(1, 'd'))
-                        .then((cacheSize) => {
-                            console.log("Current cache size is", cacheSize);
-                            res.status(200).json(appDetails);
-                        });
+                    appDetailsToReturn = appDetails;
+                    return cache.store(appDetails, moment().add(1, 'd'));
+                })
+                .then((cacheSize) => {
+                    console.log("Current cache size is", cacheSize);
+                    return res.status(200).json(appDetailsToReturn);
                 })
                 .catch((err) => {
                     next(err);
