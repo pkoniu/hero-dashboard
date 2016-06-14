@@ -15,4 +15,4 @@ gulp.task('concat:js', () => {
 
 gulp.task('watch:js', () => {
     return gulp.watch('public/app/**/*.js', ['concat:js']);
-})
+});

@@ -1,13 +1,19 @@
 .app-item {
   background: #eee;
   border-radius: 5px;
-  width: 200px;
+  width: 400px;
   height: 100px;
   padding: 10px;
   color: #111;
   float: left;
-  margin: 0 20px 20px 0;
-  white-space: nowrap
+  margin: 0 40px 40px 0;
+  white-space: nowrap;
+  position: relative;
+}
+
+.app-item-wide {
+  width: 860px;
+  height: 200px;
 }
 
 .app-details-button {
@@ -16,7 +22,7 @@
   padding: 0.5px 2.5px 3px 2.5px;
   float: right;
   border: 1px solid #000000;
-  background: @primary-color;
+  background: @sidebar-bg-color;
   border-radius: 3px;
 }
 
@@ -26,6 +32,12 @@
 
 .app-details-button:hover {
   background: @primary-color-hover;
+}
+
+.live-status-checkbox {
+  position: absolute;
+  bottom: 5px;
+  right: 10px;
 }
 
 li {

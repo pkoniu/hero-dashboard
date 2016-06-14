@@ -2,26 +2,29 @@
 
 <p ng-if="!apps.length">Loading...</p>
 
-<div ng-if="apps.length">
+<div ng-if="apps.length && !selectedApp">
 
     <div class="app-item" ng-repeat="app in apps">
         <strong>{{app.name}}</strong>
-        <a class="app-details-button" ui-sref="appDetails({app:app.name})">more</a>
+        <a class="app-details-button" ng-click="selectApp(app)">more</a>
         <ul>
             <li>
-                Status:
-                <span ng-if="app.name==='hello-world-heroku1'">
-                    <span id="hello-world-heroku1-status"></span>
-                </span>
-                <span ng-if="app.name!=='hello-world-heroku1'">
-                    <span ng-if="app.status">{{app.status}}</span>
-                    <span ng-if="!app.status">N/A</span>
-                </span>
+                Status: {{monitors[app.name].status || 'monitoring OFF'}}
             </li>
             <li>Repo: <span ng-if="app.repositoryUrl">{{app.repositoryUrl}}</span><span ng-if="!app.repositoryUrl">N/A</span></li>
             <li>Monitoring: <span ng-if="app.monitoringUrl">{{app.monitoringUrl}}</span><span ng-if="!app.monitoringUrl">N/A</span></li>
             <li>Logs: <span ng-if="app.logsUrl">{{app.logsUrl}}</span><span ng-if="!app.logsUrl">N/A</span></li>
         </ul>
+        <span class="live-status-checkbox">
+            Live status monitoring: &nbsp;&nbsp; <input type="checkbox" ng-model="app.liveStatus" ng-change="switchLiveStatus(app)" />
+        </span>
     </div>
+
+</div>
+
+<div ng-if="selectedApp" class="app-item app-item-wide">
+    {{selectedApp.name}}
+
+    <a class="app-details-button" ng-click="closeSelected()">close</a>
 
 </div>
