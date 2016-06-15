@@ -11,10 +11,46 @@ module.exports = (herokuRequests, cache, packageJSON) => {
             });
         },
         getApps: (req, res, next) => {
-            herokuRequests.getAllApps()
-                .then((apps) => {
-                    res.status(200).json(apps);
-                });
+            let cachedApps = cache.storedEntries; //spytanie o wszystkie appki
+            let appsToReturn = [];
+            let storePromises = [];
+            let mergePromises = []; 
+            let aboutPromises = [];
+
+            if(cachedApps === undefined){
+                herokuRequests.getAllApps()
+                    .then((apps) => {
+                        return Promise.resolve(apps);
+                    })
+                    .then( (apps) => {
+                        appsToReturn = apps;
+                        apps.forEach( function(app){
+                            aboutPromises.push( request(app.web_url.concat("about")) );
+                        })
+                        return Promise.all(aboutPromises);
+                    })
+                    .then( (appsAbouts) => {
+                        for(var i=0; i<appsAbouts.length; i++){
+                            mergePromises.push( Promise.resolve(_.merge(appsToReturn[i], JSON.parse( appsAbouts[i].body))) );
+                        }
+                        return Promise.all(mergePromises);
+                     })
+                     .then( () => {
+                        appsToReturn.forEach( function(app){
+                            storePromises.push(cache.store(app, moment().add(1, 'd'))); 
+                        });
+                        return Promise.all(storePromises);
+                    })
+                    .then( (result) => {
+                        console.log(result);
+                        return res.status(200).json(appsToReturn);
+                    })
+                    .catch( (err) => {
+                        next(err);
+                    });
+            } else {
+                res.status(200).json(cachedApps);
+            }
         },
         getApp: (req, res, next) => {
             let appName = req.params.app;
