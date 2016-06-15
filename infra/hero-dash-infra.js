@@ -12,9 +12,12 @@ configurator({
         NODE_ENV: 'production',
         GITHUB_KEY: process.env.GITHUB_KEY,
         GITHUB_SECRET: process.env.GITHUB_SECRET,
-        APP_DOMAIN: process.env.APP_DOMAIN
+        APP_DOMAIN: process.env.APP_DOMAIN,
+        REDIS_URL: process.env.REDIS_URL
     },
-    addons: {},
+    addons: {
+        'heroku-redis': {plan: 'heroku-redis:hobby-dev'}
+    },
     collaborators: [
         'mk.chomik@gmail.com',
         'patryk.konior@gmail.com',

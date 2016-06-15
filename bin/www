@@ -1,15 +1,30 @@
 #!/usr/bin/env node
 "use strict";
 
-if(process.env.NODE_ENV !== 'production') {
+//todo: do it differently
+if (process.env.NODE_ENV !== 'production') {
     process.env.APP_DOMAIN = 'http://localhost:3000/';
+    process.env.REDIS_URL = "redis://127.0.0.1:6379/0";
 }
 
 let debug = require('debug')('hero-dashboard:server');
 let server;
 
+let redis = require('redis');
+let client = redis.createClient(process.env.REDIS_URL);
+let cacheTTL = 5 * 60 * 60; // 5 hours
+
 let Heroku = require('heroku-client');
-let herokuRequests = require('./../src/heroku-requests')(new Heroku({token: process.env.HEROKU_API_TOKEN}));
+let encryptor = require('simple-encryptor')('SUPER_SECRET_KEY');
+let heroku = new Heroku({
+    token: process.env.HEROKU_API_TOKEN,
+    cache: {
+        store: require('./../src/cache/redis-cache-store')(client, cacheTTL),
+        encryptor: encryptor
+    }
+});
+
+let herokuRequests = require('./../src/heroku-requests')(heroku);
 let cache = require('./../src/cache/in-memory-cache')();
 let packageJSON = require(process.cwd() + '/package.json');
 let app = require('./../src/app')(herokuRequests, cache, packageJSON);
