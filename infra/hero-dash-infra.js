@@ -18,7 +18,7 @@ configurator({
     addons: {
         'heroku-redis': {plan: 'heroku-redis:hobby-dev'},
         'librato': {plan: 'librato:development'},
-        'logentries': {'plan': 'logentries:tryit'}
+        'logentries': {'plan': 'logentries:le_tryit'}
     },
     collaborators: [
         'mk.chomik@gmail.com',
