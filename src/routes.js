@@ -1,7 +1,23 @@
 "use strict";
 
-let moment = require('moment');
-let request = require('good-guy-http')();
+const moment = require('moment');
+const request = require('good-guy-http')();
+const _ = require('lodash');
+const filter = require('./util/apps-addons-filter');
+
+let getAboutData = (appUrl) => {
+    return request(appUrl + 'about')
+        .then((response) => {
+            return JSON.parse(response.body);
+        })
+        .catch((error) => {
+            return error;
+        });
+};
+
+let assignHelper = (appsAddons) => {
+    return {addons: appsAddons};
+};
 
 module.exports = (herokuRequests, cache, packageJSON) => {
     return {
@@ -11,10 +27,63 @@ module.exports = (herokuRequests, cache, packageJSON) => {
             });
         },
         getApps: (req, res, next) => {
+            var allAppsData, allAppsAbout, allAppsAddons;
             herokuRequests.getAllApps()
                 .then((apps) => {
-                    res.status(200).json(apps);
-                });
+                    allAppsData = apps;
+
+                    return Promise.all(_.map(apps, (app) => {
+                        return getAboutData(app.web_url);
+                    }));
+                })
+                .then((allAppsAboutData) => {
+                    allAppsAbout = allAppsAboutData;
+
+                    return Promise.all(_.map(allAppsData, (app) => {
+                        return herokuRequests.getAppAddons(app.name);
+                    }));
+                })
+                .then((allAppsAddonsData) => {
+                    allAppsAddons = allAppsAddonsData;
+
+                    return Promise.resolve(_.map(allAppsData, (app, i) => {
+                        return _.assignIn(allAppsAbout[i], app);
+                    }));
+                })
+                .then((combinedAppsDetails) => {
+                    return Promise.resolve(_.map(combinedAppsDetails, (app) => {
+                        return _.pick(app, ['name', 'created_at', 'updated_at', 'web_url', 'repo', 'wiki']);
+                    }));
+                })
+                .then((onlyNeededAppDetails) => {
+                    return Promise.resolve(_.map(onlyNeededAppDetails, (app, i) => {
+                        return _.assignIn(app, assignHelper(allAppsAddons[i]));
+                    }));
+                })
+                .then((bla) => {
+                    var final = _.map(bla, (app) => {
+                        let repo = app.repo;
+
+                        if (repo) {
+                            repo = repo.slice(4);
+                        } else {
+                            repo = undefined;
+                        }
+
+                        return {
+                            name: app.name,
+                            updated: moment(app.updated_at).fromNow(),
+                            created: moment(app.created_at).fromNow(),
+                            gitUrl: repo,
+                            logs: filter.getFilteredAddons(app.addons, filter.filterFunctions.isLoggingAddon),
+                            metrics: filter.getFilteredAddons(app.addons, filter.filterFunctions.isMetricsAddon),
+                            url: app.web_url
+                        };
+                    });
+
+                    res.status(200).json(final);
+                })
+                .catch(next);
         },
         getApp: (req, res, next) => {
             let appName = req.params.app;
@@ -40,6 +109,14 @@ module.exports = (herokuRequests, cache, packageJSON) => {
                     next(err);
                 });
         },
+        restartApp: (req, res, next) => {
+            let appName = req.params.app;
+
+            herokuRequests.restartApp(appName)
+                .then((result) => {
+                    res.status(200).send(`${appName} restarted.`);
+                }).catch(next);
+        },
         monitorApp: (req, res, next) => {
             let appName = req.params.app;
 
@@ -52,7 +129,7 @@ module.exports = (herokuRequests, cache, packageJSON) => {
             setInterval(() => {
                 herokuRequests.getAppStatus(appName)
                     .then((dynos) => {
-                        let firstDyno = dynos[0]; //todo: don't take only first dyno, look at all available
+                        let firstDyno = dynos[0];
                         res.write('id: ' + firstDyno.id + '\n');
                         res.write('event: success\n');
                         res.write('data: ' + firstDyno.state + '\n\n');
@@ -68,7 +145,8 @@ module.exports = (herokuRequests, cache, packageJSON) => {
             res.status(200).send({
                 authors: packageJSON.authors,
                 repo: packageJSON.repository.url,
-                readme: packageJSON.homepage
+                readme: packageJSON.homepage,
+                wiki: packageJSON.wiki
             });
         },
         getProfile: (req, res, next) => {

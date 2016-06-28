@@ -16,7 +16,9 @@ configurator({
         REDIS_URL: process.env.REDIS_URL
     },
     addons: {
-        'heroku-redis': {plan: 'heroku-redis:hobby-dev'}
+        'heroku-redis': {plan: 'heroku-redis:hobby-dev'},
+        'librato': {plan: 'librato:development'},
+        'logentries': {'plan': 'logentries:le_tryit'}
     },
     collaborators: [
         'mk.chomik@gmail.com',

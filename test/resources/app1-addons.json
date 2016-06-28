@@ -1,0 +1,74 @@
+[
+  {
+    "actions": [],
+    "config_vars": [],
+    "created_at": "2016-06-28T22:28:55Z",
+    "id": "115b0deb-4fe3-4a0c-88ac-276f1e80b7ad",
+    "name": "logentries-cylindrical-87707",
+    "addon_service": {
+      "id": "517997be-f55e-4e92-bb1c-26d9d2b58348",
+      "name": "logentries"
+    },
+    "plan": {
+      "id": "bb59c959-fd0b-4789-b931-4f8dd9e56fa2",
+      "name": "logentries:le_tryit"
+    },
+    "app": {
+      "id": "da0dce55-04eb-4602-b80c-79f52aa10f98",
+      "name": "hero-dash"
+    },
+    "provider_id": "app50928980@heroku.com",
+    "updated_at": "2016-06-28T22:28:56Z",
+    "web_url": "https://addons-sso.heroku.com/apps/hero-dash/addons/115b0deb-4fe3-4a0c-88ac-276f1e80b7ad"
+  },
+  {
+    "actions": [],
+    "config_vars": [
+      "LIBRATO_PASSWORD",
+      "LIBRATO_TOKEN",
+      "LIBRATO_USER"
+    ],
+    "created_at": "2016-06-28T22:29:02Z",
+    "id": "1244c4a2-645a-488b-bcd9-02160c849e24",
+    "name": "librato-polished-40572",
+    "addon_service": {
+      "id": "1f373a84-82c0-4a28-bc1a-d86fc1aca29e",
+      "name": "librato"
+    },
+    "plan": {
+      "id": "0f508c33-487b-47be-8524-3a26828b4bcf",
+      "name": "librato:development"
+    },
+    "app": {
+      "id": "da0dce55-04eb-4602-b80c-79f52aa10f98",
+      "name": "hero-dash"
+    },
+    "provider_id": "81552",
+    "updated_at": "2016-06-28T22:29:10Z",
+    "web_url": "https://addons-sso.heroku.com/apps/hero-dash/addons/1244c4a2-645a-488b-bcd9-02160c849e24"
+  },
+  {
+    "actions": [],
+    "config_vars": [
+      "REDIS_URL"
+    ],
+    "created_at": "2016-06-15T21:27:22Z",
+    "id": "a7ce32ff-ab93-4f0e-a84b-0fef7fbcf0fb",
+    "name": "redis-reticulated-23451",
+    "addon_service": {
+      "id": "5bbf672c-07f6-49c2-9c16-f1dcb96784db",
+      "name": "heroku-redis"
+    },
+    "plan": {
+      "id": "67756275-86b8-4edc-80c5-d543f9df7d44",
+      "name": "heroku-redis:hobby-dev"
+    },
+    "app": {
+      "id": "da0dce55-04eb-4602-b80c-79f52aa10f98",
+      "name": "hero-dash"
+    },
+    "provider_id": "resource13922748@heroku.com",
+    "updated_at": "2016-06-15T21:27:26Z",
+    "web_url": "https://addons-sso.heroku.com/apps/hero-dash/addons/a7ce32ff-ab93-4f0e-a84b-0fef7fbcf0fb"
+  }
+]
