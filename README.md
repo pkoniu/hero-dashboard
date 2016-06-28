@@ -7,5 +7,10 @@
 - `cd hero-dashboard`
 - `npm install`
 - `export HEROKU_API_TOKEN={your heroku api token}`
+- Make sure that `redis-server` runs on default port locally (6379);
 - `npm start`
 - go to `localhost:3000`
+
+## Installing redis
+
+- [installing instructions](http://redis.io/topics/quickstart)
