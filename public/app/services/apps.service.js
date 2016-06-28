@@ -7,6 +7,7 @@ app.factory('Apps', function ($http, $rootScope) {
     service.getAppsList = getAppsList;
     service.getAppDetails = getAppDetails;
     service.monitors = currentMonitors;
+    service.restartApp = restartApp;
 
     service.liveMonitor = liveMonitor;
 
@@ -26,6 +27,9 @@ app.factory('Apps', function ($http, $rootScope) {
         });
     }
 
+    function restartApp(appName) {
+        return $http.get('/api/apps/' + appName + '/restart');
+    }
 
     function liveMonitor(app) {
 
@@ -33,15 +37,15 @@ app.factory('Apps', function ($http, $rootScope) {
 
             var monitor = {};
 
-            monitor.eventsource = new EventSource('/api/apps/monitoring/'+app.name);
+            monitor.eventsource = new EventSource('/api/apps/monitoring/' + app.name);
             monitor.status = "loading..."
 
-            monitor.eventsource.addEventListener('success', function(event) {
+            monitor.eventsource.addEventListener('success', function (event) {
                 monitor.status = event.data;
                 $rootScope.$apply();
             }, false);
 
-            monitor.eventsource.addEventListener('error', function(event) {
+            monitor.eventsource.addEventListener('error', function (event) {
                 if (event.target.readyState == EventSource.CLOSED) {
                     monitor.status = 'N/A - Connection to server closed.';
                 }

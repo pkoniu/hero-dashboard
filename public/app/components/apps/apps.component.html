@@ -2,11 +2,11 @@
 
 <p ng-if="!apps.length">Loading...</p>
 
-<div ng-if="apps.length && !selectedApp">
+<div ng-if="apps.length">
 
     <div class="app-item" ng-repeat="app in apps">
         <strong>{{app.name}}</strong>
-        <a class="app-details-button" ng-click="selectApp(app)">more</a>
+        <a class="app-details-button" ng-click="restartApp(app)">restart</a>
         <ul>
             <li>
                 Status: {{monitors[app.name].status || 'monitoring OFF'}}
@@ -19,12 +19,5 @@
             Live status monitoring: &nbsp;&nbsp; <input type="checkbox" ng-model="app.liveStatus" ng-change="switchLiveStatus(app)" />
         </span>
     </div>
-
-</div>
-
-<div ng-if="selectedApp" class="app-item app-item-wide">
-    {{selectedApp.name}}
-
-    <a class="app-details-button" ng-click="closeSelected()">close</a>
 
 </div>
