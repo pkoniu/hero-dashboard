@@ -30,6 +30,7 @@ module.exports = (herokuRequests, cache, packageJSON, authMiddleware) => {
     app.get('/api/apps', authMiddleware, routes.getApps);
     app.get('/api/apps/monitoring/:app', routes.monitorApp);
     app.get('/api/apps/:app', authMiddleware, routes.getApp);
+    app.get('/api/apps/:app/restart', authMiddleware, routes.restartApp);
     app.get('/api/profile', authMiddleware, routes.getProfile);
     app.get('/api/logout', authMiddleware, routes.logout);
     app.get('/about', routes.about);

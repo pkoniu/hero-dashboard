@@ -109,6 +109,14 @@ module.exports = (herokuRequests, cache, packageJSON) => {
                     next(err);
                 });
         },
+        restartApp: (req, res, next) => {
+            let appName = req.params.app;
+
+            herokuRequests.restartApp(appName)
+                .then((result) => {
+                    res.status(200).send(`${appName} restarted.`);
+                }).catch(next);
+        },
         monitorApp: (req, res, next) => {
             let appName = req.params.app;
 

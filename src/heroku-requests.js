@@ -11,6 +11,9 @@ module.exports = (heroku) => {
         },
         getAppAddons: (appName) => {
             return heroku.apps(appName).addons().listByApp();
+        },
+        restartApp: (appName) => {
+            return heroku.delete(`/apps/${appName}/dynos`);
         }
     };
 };
