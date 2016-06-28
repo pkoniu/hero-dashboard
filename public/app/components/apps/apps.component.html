@@ -10,7 +10,7 @@
         <ul>
             <li>created: {{app.created}}</li>
             <li>updated: {{app.updated}}</li>
-            <li ng-if="app.gitUrl">Repo: <a ng-href="{{app.gitUrl}}">{{app.repositoryUrl}}</a></li>
+            <li ng-if="app.gitUrl">Repo: <a ng-href="{{app.gitUrl}}">{{app.gitUrl}}</a></li>
             <li ng-if="app.metrics">Metrics: <a ng-href="{{app.metrics.url}}">{{app.metrics.name}}</a></li>
             <li ng-if="app.logs">Logs: <a ng-href="{{app.logs.url}}">{{app.logs.name}}</a></li>
             <li>
