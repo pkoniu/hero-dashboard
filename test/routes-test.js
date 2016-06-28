@@ -42,28 +42,9 @@ describe('Hero-Dash REST API', () => {
                     done(err);
                 } else {
                     let appList = res.body;
-                    let testApp = appList.app1;
-                    assert.equal(testApp.prop1, "val1");
-                    assert.equal(testApp.prop2, "val2");
-                    assert.equal(testApp.savedAt, "Wed May 04 2016 23:46:41 GMT+0200 (CEST)");
-                    done();
-                }
-            });
-    });
-
-    it('should list all apps when requested', (done) => {
-        request(app)
-            .get('/api/apps')
-            .expect(200)
-            .end((err, res) => {
-                if (err) {
-                    done(err);
-                } else {
-                    let appList = res.body;
-                    let testApp = appList.app1;
-                    assert.equal(testApp.prop1, "val1");
-                    assert.equal(testApp.prop2, "val2");
-                    assert.equal(testApp.savedAt, "Wed May 04 2016 23:46:41 GMT+0200 (CEST)");
+                    assert.equal(appList[0].created, 'a few seconds ago');
+                    assert.equal(appList[0].logs.name, 'logentries')
+                    assert.equal(appList[0].metrics.name, 'librato')
                     done();
                 }
             });
