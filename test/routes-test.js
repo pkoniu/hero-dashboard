@@ -43,8 +43,8 @@ describe('Hero-Dash REST API', () => {
                 } else {
                     let appList = res.body;
                     assert.equal(appList[0].created, 'a few seconds ago');
-                    assert.equal(appList[0].logs.name, 'logentries')
-                    assert.equal(appList[0].metrics.name, 'librato')
+                    assert.equal(appList[0].logs.name, 'logentries');
+                    assert.equal(appList[0].metrics.name, 'librato');
                     done();
                 }
             });

@@ -52,12 +52,12 @@ module.exports = (herokuRequests, cache, packageJSON) => {
                 })
                 .then((combinedAppsDetails) => {
                     return Promise.resolve(_.map(combinedAppsDetails, (app) => {
-                        return _.pick(app, ['name', 'created_at', 'updated_at', 'web_url', 'repo', 'wiki'])
+                        return _.pick(app, ['name', 'created_at', 'updated_at', 'web_url', 'repo', 'wiki']);
                     }));
                 })
                 .then((onlyNeededAppDetails) => {
                     return Promise.resolve(_.map(onlyNeededAppDetails, (app, i) => {
-                        return _.assignIn(app, assignHelper(allAppsAddons[i]))
+                        return _.assignIn(app, assignHelper(allAppsAddons[i]));
                     }));
                 })
                 .then((bla) => {
@@ -78,7 +78,7 @@ module.exports = (herokuRequests, cache, packageJSON) => {
                             logs: filter.getFilteredAddons(app.addons, filter.filterFunctions.isLoggingAddon),
                             metrics: filter.getFilteredAddons(app.addons, filter.filterFunctions.isMetricsAddon),
                             url: app.web_url
-                        }
+                        };
                     });
 
                     res.status(200).json(final);
