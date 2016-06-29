@@ -7,8 +7,9 @@ let bodyParser = require('body-parser');
 let session = require('express-session');
 
 let isLoggedIn = (req, res, next) => {
-    if (req.isAuthenticated()) return next();
-    else res.status(401).send('Unauthorized.');
+    return next();
+    //if (req.isAuthenticated()) return next();
+    //else res.status(401).send('Unauthorized.');
 };
 
 module.exports = (herokuRequests, cache, packageJSON, authMiddleware) => {
