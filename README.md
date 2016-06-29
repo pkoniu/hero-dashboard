@@ -1,5 +1,4 @@
-# Hero dashboard
-[![Build Status](https://travis-ci.org/pkoniu/hero-dashboard.svg?branch=master)](https://travis-ci.org/pkoniu/hero-dashboard)
+# Hero dashboard [![Build Status](https://travis-ci.org/pkoniu/hero-dashboard.svg?branch=master)](https://travis-ci.org/pkoniu/hero-dashboard)
 
 ## Running locally
 
@@ -11,6 +10,7 @@
 - `npm start`
 - go to `localhost:3000`
 
-## Installing redis
+#### Useful links
 
-- [installing instructions](http://redis.io/topics/quickstart)
+- [installing node](https://nodejs.org/en/download/package-manager/)
+- [installing redis](http://redis.io/topics/quickstart)
